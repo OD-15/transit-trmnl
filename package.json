@@ -1,7 +1,9 @@
 {
   "name": "trmnl-departures",
   "version": "1.0.0",
+  "description": "TRMNL Plugin: Zeigt die nächsten 4 Abfahrten einer Haltestelle",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
@@ -9,5 +11,9 @@
     "express": "^4.18.2",
     "node-fetch": "^3.3.2"
   },
-  "type": "module"
-}
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "TRMNL",
+    "Plugin"
