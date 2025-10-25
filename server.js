@@ -4,15 +4,18 @@ import fetch from 'node-fetch';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Wir erwarten einen Query-Parameter ?stop=<Haltestellenname oder ID>
 app.get('/departures', async (req, res) => {
   try {
-    const query = req.query.stop || 'Saarbrücken Hbf'; // ?stop=Saarbrücken Hbf oder ?stopId=8000096
-    let stopId = req.query.stopId || query;
+    const stopQuery = req.query.stop;
+    if (!stopQuery) return res.status(400).json({ error: 'Bitte stop oder stopId angeben' });
 
-    // Wenn keine Zahl → Name wurde eingegeben → ID suchen
+    let stopId = stopQuery;
+
+    // Wenn keine Zahl, interpretieren wir es als Name → ID suchen
     if (!/^\d+$/.test(stopId)) {
       const searchRes = await fetch(
-        `https://v6.transport.rest/stops?query=${encodeURIComponent(query)}`
+        `https://v6.transport.rest/stops?query=${encodeURIComponent(stopQuery)}`
       );
       if (!searchRes.ok) throw new Error('Fehler bei der Haltestellensuche');
       const stops = await searchRes.json();
@@ -27,7 +30,6 @@ app.get('/departures', async (req, res) => {
     if (!depRes.ok) throw new Error('Fehler beim Abrufen der Abfahrten');
     const data = await depRes.json();
 
-    // Einfaches JSON für TRMNL
     const simplified = data.map(d => ({
       time: new Date(d.when).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
       line: d.line?.name || 'Unbekannt',
