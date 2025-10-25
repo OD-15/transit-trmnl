@@ -14,15 +14,21 @@ app.get('/departures', async (req, res) => {
 
     const data = await response.json();
 
-    const simplified = data.map(d => ({
-      time: new Date(d.when).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
-      line: d.line?.name || 'Unbekannt',
-      direction: d.direction || '–',
-    }));
+    const departures = data.map(d => {
+      const time = new Date(d.when).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+      const line = d.line?.name || 'Unbekannt';
+      const direction = d.direction || '–';
+      return `<li>${time} – ${line} Richtung ${direction}</li>`;
+    }).join('');
 
-    res.json(simplified);
+    res.send(`
+      <h2>🚉 Abfahrten</h2>
+      <ul style="list-style:none; padding:0; margin:0;">
+        ${departures}
+      </ul>
+    `);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.send(`<p>❌ Fehler: ${err.message}</p>`);
   }
 });
 
