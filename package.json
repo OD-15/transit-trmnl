@@ -1,17 +1,17 @@
 {
   "name": "db-trmnl-server",
   "version": "1.0.0",
-  "description": "Node.js Server für DB Abfahrtsdaten",
+  "description": "TRMNL Plugin: Zeigt die nächsten 4 Abfahrten einer Haltestelle über DB API",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "node-fetch": "^3.2.10"
+    "node-fetch": "^3.3.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18"
   }
 }
-
