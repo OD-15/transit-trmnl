@@ -16,4 +16,10 @@
   },
   "keywords": [
     "TRMNL",
-    "Plugin"
+    "Plugin",
+    "Abfahrten",
+    "Haltestelle"
+  ],
+  "author": "Dein Name",
+  "license": "MIT"
+}
