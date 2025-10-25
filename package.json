@@ -13,13 +13,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "keywords": [
-    "TRMNL",
-    "Plugin",
-    "Abfahrten",
-    "Haltestelle"
-  ],
-  "author": "Dein Name",
-  "license": "MIT"
+  }
 }
