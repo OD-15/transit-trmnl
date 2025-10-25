@@ -1,7 +1,7 @@
 {
   "name": "db-trmnl-server",
   "version": "1.0.0",
-  "description": "TRMNL Plugin: Zeigt die nächsten 4 Abfahrten einer Haltestelle über DB API (Station in URL)",
+  "description": "TRMNL Plugin: Zeigt die nächsten 4 Abfahrten einer Haltestelle über DB API",
   "main": "server.js",
   "type": "module",
   "scripts": {
