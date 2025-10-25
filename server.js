@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   res.send('TRMNL DB-Abfahrten-Server läuft. Nutze /departures/<Haltestellen-ID>');
 });
 
-// Abfahrten-Endpoint: Station direkt in URL
+// Endpoint: Station direkt in URL
 app.get('/departures/:stopId', async (req, res) => {
   const stopId = req.params.stopId;
 
@@ -19,19 +19,19 @@ app.get('/departures/:stopId', async (req, res) => {
 
     const data = await response.json();
 
-    // TRMNL-kompatibles JSON
+    // TRMNL-kompatibles flaches Array
     const simplified = data.map(d => ({
       time: d.when ? new Date(d.when).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) : '–',
       line: d.line?.name || '–',
       direction: d.direction || '–'
     }));
 
-    res.json(simplified);
+    res.status(200).json(simplified);
   } catch (err) {
     console.error(err.message);
 
-    // Fallback-Daten
-    res.json([
+    // Fallback-Daten bei Fehler
+    res.status(200).json([
       { time: "09:12", line: "S1", direction: "Trier Hbf" },
       { time: "09:18", line: "RE1", direction: "Mannheim Hbf" },
       { time: "09:24", line: "S2", direction: "Homburg Hbf" },
